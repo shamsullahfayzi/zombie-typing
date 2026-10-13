@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useGame } from '../context/GameSettingsContext'
 import { isRtl } from '../translations'
 import { getScores, clearScores } from '../leaderboard'
-import gameSettingsBg from '../assets/GameSettingsBg.jpg'
+import gameSettingsBg from '../assets/GameSettingsBg.webp'
 
 const MEDALS = ['🥇', '🥈', '🥉']
 

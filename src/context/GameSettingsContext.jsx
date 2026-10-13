@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import stewie from '../assets/angry_stewie.png'
-import stewieFireEffect from '../assets/stewie_fire_sound.wav'
-import stewieFireImage from '../assets/angry_stewie.png'
+import stewie from '../assets/angry_stewie.webp'
+import stewieFireEffect from '../assets/stewie_fire_sound.mp3'
+import stewieFireImage from '../assets/angry_stewie.webp'
 import { translations } from '../translations'
-import backgroundSound from '../assets/backgroundsound.flac'
+import backgroundSound from '../assets/backgroundsound.mp3'
 import * as audio from '../audio'
 const GameSettingsContext = createContext();
 

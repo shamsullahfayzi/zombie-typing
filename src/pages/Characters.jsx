@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import CharacterSelect from '../assets/CharacterSelect.jpeg';
-import peter from '../assets/peter.png';
+import CharacterSelect from '../assets/CharacterSelect.webp';
+import peter from '../assets/peter.webp';
 
-import stewie from '../assets/stewie.png';
-import stewieFireEffect from '../assets/stewie_fire_sound.wav'
+import stewie from '../assets/stewie.webp';
+import stewieFireEffect from '../assets/stewie_fire_sound.mp3'
 import peterFireEffect from '../assets/peter_fire_sound.mp3'
-import peterFireImage from '../assets/peter_firing.png'
-import stewieFireImage from '../assets/angry_stewie.png'
+import peterFireImage from '../assets/peter_firing.webp'
+import stewieFireImage from '../assets/angry_stewie.webp'
 import { useGame } from '../context/GameSettingsContext';
 import { Navigate, useNavigate } from 'react-router-dom';
 

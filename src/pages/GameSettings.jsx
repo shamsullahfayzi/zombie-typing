@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGame } from '../context/GameSettingsContext';
 import { isRtl } from '../translations';
-import gameSettingsBg from '../assets/GameSettingsBg.jpg';
+import gameSettingsBg from '../assets/GameSettingsBg.webp';
 
 const DIFFICULTIES = [
     { labelKey: 'easy', value: 1, descKey: 'easyDesc', icon: '🧟' },
