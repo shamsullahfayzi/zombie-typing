@@ -287,7 +287,7 @@ const Play = () => {
                         targetY={bullet.targetY + 10}
                         onComplete={removeBullet}
                         bulletId={bullet.id}
-                        bulletClass={character.name === 'stewie' ? 'bullet-stewie' : 'bullet-peter'}
+                        bulletClass={character.name === 'volt' ? 'bullet-volt' : 'bullet-scout'}
                     />
                 ))}
             </div>

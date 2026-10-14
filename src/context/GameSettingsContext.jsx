@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import stewie from '../assets/angry_stewie.webp'
-import stewieFireEffect from '../assets/stewie_fire_sound.mp3'
-import stewieFireImage from '../assets/angry_stewie.webp'
+import volt from '../assets/volt.webp'
+import voltFireEffect from '../assets/volt_fire.mp3'
+import voltFireImage from '../assets/volt_firing.webp'
 import { translations } from '../translations'
 import backgroundSound from '../assets/backgroundsound.mp3'
 import * as audio from '../audio'
@@ -10,10 +10,10 @@ const GameSettingsContext = createContext();
 export function GameSettingsProvider({children}) {
     const [character,setCharacter] = useState(
         { 
-                    name: 'stewie',
-                        image: stewie,
-                        fireImage:stewieFireImage,
-                        fireEffect:stewieFireEffect,
+                    name: 'volt',
+                        image: volt,
+                        fireImage: voltFireImage,
+                        fireEffect: voltFireEffect,
                         muzzelX:90,
                         muzzelY:78
         }

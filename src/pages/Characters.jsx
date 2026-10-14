@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import CharacterSelect from '../assets/CharacterSelect.webp';
-import peter from '../assets/peter.webp';
-
-import stewie from '../assets/stewie.webp';
-import stewieFireEffect from '../assets/stewie_fire_sound.mp3'
-import peterFireEffect from '../assets/peter_fire_sound.mp3'
-import peterFireImage from '../assets/peter_firing.webp'
-import stewieFireImage from '../assets/angry_stewie.webp'
+import volt from '../assets/volt.webp';
+import voltFireImage from '../assets/volt_firing.webp';
+import voltFireEffect from '../assets/volt_fire.mp3';
+import scout from '../assets/scout.webp';
+import scoutFireImage from '../assets/scout_firing.webp';
+import scoutFireEffect from '../assets/scout_fire.mp3';
 import { useGame } from '../context/GameSettingsContext';
 import { Navigate, useNavigate } from 'react-router-dom';
 
@@ -15,21 +14,21 @@ const Characters = () => {
     const {character,setCharacter,t} = useGame()
     const [characters, setCharacters] = useState([
         {
-            name: 'stewie',
-            image: stewie,
-            fireImage:stewieFireImage,
+            name: 'volt',
+            image: volt,
+            fireImage: voltFireImage,
             selected: true,
-            fireEffect:stewieFireEffect,
+            fireEffect: voltFireEffect,
             muzzelX:90,
                         muzzelY:88,
             index: 0
         },
         {
-            name: 'peter',
-            image: peter,
-            fireImage:peterFireImage,
+            name: 'scout',
+            image: scout,
+            fireImage: scoutFireImage,
             selected: false,
-            fireEffect:peterFireEffect,
+            fireEffect: scoutFireEffect,
             muzzelX:93,
             muzzelY:75,
             index: 1
