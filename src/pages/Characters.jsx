@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import CharacterSelect from '../assets/CharacterSelect.webp';
-import peter from '../assets/peter.webp';
-
-import stewie from '../assets/stewie.webp';
-import stewieFireEffect from '../assets/stewie_fire_sound.mp3'
-import peterFireEffect from '../assets/peter_fire_sound.mp3'
-import peterFireImage from '../assets/peter_firing.webp'
-import stewieFireImage from '../assets/angry_stewie.webp'
+import volt from '../assets/volt.webp';
+import voltFireImage from '../assets/volt_firing.webp';
+import voltFireEffect from '../assets/volt_fire.mp3';
+import scout from '../assets/scout.webp';
+import scoutFireImage from '../assets/scout_firing.webp';
+import scoutFireEffect from '../assets/scout_fire.mp3';
 import { useGame } from '../context/GameSettingsContext';
 import { Navigate, useNavigate } from 'react-router-dom';
 
@@ -15,23 +14,21 @@ const Characters = () => {
     const {character,setCharacter,t} = useGame()
     const [characters, setCharacters] = useState([
         {
-            name: 'stewie',
-            image: stewie,
-            fireImage:stewieFireImage,
+            name: 'volt',
+            image: volt,
+            fireImage: voltFireImage,
             selected: true,
-            fireEffect:stewieFireEffect,
-            muzzelX:90,
-                        muzzelY:88,
+            fireEffect: voltFireEffect,
+            muzzle: { x: 0.93, y: 0.53 }, // gun barrel, as a fraction of the aiming image,
             index: 0
         },
         {
-            name: 'peter',
-            image: peter,
-            fireImage:peterFireImage,
+            name: 'scout',
+            image: scout,
+            fireImage: scoutFireImage,
             selected: false,
-            fireEffect:peterFireEffect,
-            muzzelX:93,
-            muzzelY:75,
+            fireEffect: scoutFireEffect,
+            muzzle: { x: 0.93, y: 0.53 }, // gun barrel, as a fraction of the aiming image,
             index: 1
         }
     ]);
@@ -68,12 +65,13 @@ const Characters = () => {
             }}
         >
             <div className="flex items-center justify-center flex-1">
-                <div className="flex gap-40 p-8">
+                <div className="flex p-8" style={{ gap: 'min(10rem, 6vw)' }}>
                     {characters.map((char) => (
                         <div
                             key={char.index}
                             onClick={() => changeCharacter(char)}
-                            className={`relative w-148 h-148 rounded-2xl cursor-pointer transition-all duration-300 ${
+                            style={{ width: 'min(37rem, 40vw, 62vh)', height: 'min(37rem, 40vw, 62vh)' }}
+                            className={`relative rounded-2xl cursor-pointer transition-all duration-300 ${
                                 char.selected
                                     ? 'ring-4 ring-purple-500 ring-offset-4 ring-offset-gray-900 shadow-xl shadow-purple-500/50'
                                     : 'opacity-60 hover:opacity-100 grayscale hover:grayscale-0'

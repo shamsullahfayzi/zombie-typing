@@ -3,7 +3,7 @@ import React, { memo } from "react"
 const HealthBar = React.memo(({health}) => {
     return (
     <div className="health-bar " style={{
-                        width:'550px',
+                        width:'min(550px, 33vw)', // never runs under the stats panel
                         height:'50px',
                         border:'2px solid green',
                         padding:'4px',
