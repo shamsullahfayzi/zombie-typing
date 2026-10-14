@@ -19,8 +19,7 @@ const Characters = () => {
             fireImage: voltFireImage,
             selected: true,
             fireEffect: voltFireEffect,
-            muzzelX:90,
-                        muzzelY:88,
+            muzzle: { x: 0.93, y: 0.53 }, // gun barrel, as a fraction of the aiming image,
             index: 0
         },
         {
@@ -29,8 +28,7 @@ const Characters = () => {
             fireImage: scoutFireImage,
             selected: false,
             fireEffect: scoutFireEffect,
-            muzzelX:93,
-            muzzelY:75,
+            muzzle: { x: 0.93, y: 0.53 }, // gun barrel, as a fraction of the aiming image,
             index: 1
         }
     ]);
@@ -67,12 +65,13 @@ const Characters = () => {
             }}
         >
             <div className="flex items-center justify-center flex-1">
-                <div className="flex gap-40 p-8">
+                <div className="flex p-8" style={{ gap: 'min(10rem, 6vw)' }}>
                     {characters.map((char) => (
                         <div
                             key={char.index}
                             onClick={() => changeCharacter(char)}
-                            className={`relative w-148 h-148 rounded-2xl cursor-pointer transition-all duration-300 ${
+                            style={{ width: 'min(37rem, 40vw, 62vh)', height: 'min(37rem, 40vw, 62vh)' }}
+                            className={`relative rounded-2xl cursor-pointer transition-all duration-300 ${
                                 char.selected
                                     ? 'ring-4 ring-purple-500 ring-offset-4 ring-offset-gray-900 shadow-xl shadow-purple-500/50'
                                     : 'opacity-60 hover:opacity-100 grayscale hover:grayscale-0'

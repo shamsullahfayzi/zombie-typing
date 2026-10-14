@@ -14,8 +14,7 @@ export function GameSettingsProvider({children}) {
                         image: volt,
                         fireImage: voltFireImage,
                         fireEffect: voltFireEffect,
-                        muzzelX:90,
-                        muzzelY:78
+                        muzzle: { x: 0.93, y: 0.53 }, // gun barrel, as a fraction of the aiming image
         }
             )
     const [difficulity, setDifficulty] = useState(1)

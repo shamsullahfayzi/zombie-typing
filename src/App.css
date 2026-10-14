@@ -1,18 +1,15 @@
 /* App.css - Updated */
 
-.character-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 .character-placement {
-  position: relative; /* Changed from absolute */
-  margin-right:120em;
-  margin-top:15em;
-  display: block;
+  /* Sized by screen height like the zombies; 18.5vh = 200px on a 1080p screen. */
+  position: absolute;
+  left: 0;
+  top: 52%;
+  width: 18.5vh;
+  height: 18.5vh;
+  min-width: 96px;
+  min-height: 96px;
+  z-index: 5;
   transition: transform 0.1s;
 }
 
@@ -196,7 +193,7 @@
   color: #7CFC00;
   font-family: 'Courier New', monospace;
   font-weight: bold;
-  font-size: 16px;
+  font-size: clamp(13px, 1.5vh, 20px);
   padding: 4px 10px;
   border-radius: 4px;
   margin-bottom: 1px;
@@ -207,8 +204,9 @@
 }
 
 .zombie-image-container {
-  width: 200px;
-  height: 300px;
+  /* 18.5vh × 27.8vh = 200 × 300px on a 1080p screen */
+  width: 18.5vh;
+  height: 27.8vh;
   display: flex;
   align-items: flex-end;
   justify-content: center;

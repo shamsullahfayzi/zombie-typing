@@ -21,8 +21,9 @@ import { useGameStats } from '../hooks/useGameStats'
 import { saveScore } from '../leaderboard'
 
 const RipImage = React.memo(({ x, y }) => (
-    <img src={ripImage} width={'75px'} style={{
+    <img src={ripImage} style={{
         position: 'absolute',
+        width: '7vh',
         top: y + 20 + '%',
         right: x + 3 + '%',
         zIndex: 1
@@ -44,6 +45,8 @@ const Play = () => {
     const [health, setHealth] = useState(100)
 
     const nameRef = useRef(null)
+    const stageRef = useRef(null)
+    const shooterRef = useRef(null)
     const bulletIdRef = useRef(0)
     const ripIdRef = useRef(0)
     const currentZombieIdRef = useRef(null)
@@ -79,7 +82,7 @@ const Play = () => {
         const velocity = 4 + difficulity * 3 // %/sec: easy 7, medium 10, hard 13
         words.forEach((word, idx) => {
             const i = idx + 1
-            const laneY = 42 + Math.random() * 30 
+            const laneY = 40 + Math.random() * 27 // keeps the tallest zombie on screen
             const startX = -i * 12
             const distance = 100 - startX // % to travel
             const randomZombie = Math.floor(Math.random() * 3) + 1
@@ -150,12 +153,25 @@ const Play = () => {
         }
     }
 
+    // Bullets fly from the gun barrel to the zombie, both measured on screen at the
+    // moment of firing, so they line up at any window size.
     const fireAt = (target) => {
+        const stage = stageRef.current?.getBoundingClientRect()
+        const toPct = (x, y) => ({ x: ((x - stage.left) / stage.width) * 100, y: ((y - stage.top) / stage.height) * 100 })
+        const gun = shooterRef.current?.getBoundingClientRect()
+        const body = stageRef.current
+            ?.querySelector(`[data-zombie-id="${target.id}"] .zombie-image`)
+            ?.getBoundingClientRect()
+        if (!stage || !gun) return
+        const from = toPct(gun.left + gun.width * character.muzzle.x, gun.top + gun.height * character.muzzle.y)
+        const to = body
+            ? toPct(body.left + body.width / 2, body.top + body.height * 0.45)
+            : { x: 100 - target.currentX, y: target.targetY + 20 }
         setBullets(prev => [...prev, {
-            startX: character.muzzelX,
-            startY: character.muzzelY,
-            targetX: target.currentX,
-            targetY: target.targetY + 20,
+            fromX: from.x,
+            fromY: from.y,
+            toX: to.x,
+            toY: to.y,
             id: bulletIdRef.current++,
             zombieId: target.id,
         }])
@@ -231,6 +247,7 @@ const Play = () => {
 
     return (
         <div
+            ref={stageRef}
             dir={isRtl(language) ? 'rtl' : 'ltr'}
             style={{
                 backgroundImage: `url(${area})`,
@@ -269,28 +286,24 @@ const Play = () => {
                 <StatRow label={t('time')} value={`${Math.floor(stats.elapsed)}s`} />
             </div>
 
-            <div className='character-container'>
-                <div style={{ position: 'relative', display: 'inline-block' }}>
-                    <img
-                        src={character.fireImage}
-                        width={'200px'}
-                        height={'150px'}
-                        className={`character-placement ${bullets.length > 0 ? 'firing' : ''}`}
-                    />
-                </div>
-                {bullets.map(bullet => (
-                    <Bullet
-                        key={bullet.id}
-                        startX={bullet.startX}
-                        startY={bullet.startY}
-                        targetX={bullet.targetX + 5}
-                        targetY={bullet.targetY + 10}
-                        onComplete={removeBullet}
-                        bulletId={bullet.id}
-                        bulletClass={character.name === 'volt' ? 'bullet-volt' : 'bullet-scout'}
-                    />
-                ))}
-            </div>
+            <img
+                ref={shooterRef}
+                src={character.fireImage}
+                alt={character.name}
+                className={`character-placement ${bullets.length > 0 ? 'firing' : ''}`}
+            />
+            {bullets.map(bullet => (
+                <Bullet
+                    key={bullet.id}
+                    fromX={bullet.fromX}
+                    fromY={bullet.fromY}
+                    toX={bullet.toX}
+                    toY={bullet.toY}
+                    onComplete={removeBullet}
+                    bulletId={bullet.id}
+                    bulletClass={character.name === 'volt' ? 'bullet-volt' : 'bullet-scout'}
+                />
+            ))}
 
             {Object.values(zombies).map(zombie => (
                 <Zombie

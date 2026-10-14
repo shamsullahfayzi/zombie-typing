@@ -49,7 +49,7 @@ const Zombie = ({image,difficulity = 1,zombie,OnZombieEscape,onChangeX,zindexCla
     return (
         <>
         
-                 <div className="zombie-wrapper" 
+                 <div className="zombie-wrapper" data-zombie-id={zombie.id}
                     style={
                     {
                             position:'absolute',

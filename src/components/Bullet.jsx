@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
-const Bullet = ({startX,startY,targetX,targetY,onComplete,bulletClass,bulletId }) => {
+// fromX/fromY/toX/toY are percentages of the play area (left/top).
+const Bullet = ({fromX,fromY,toX,toY,onComplete,bulletClass,bulletId }) => {
     const [progress,setProgress] = useState(0);
     useEffect(() => {
         let frameId;
@@ -20,9 +21,10 @@ const Bullet = ({startX,startY,targetX,targetY,onComplete,bulletClass,bulletId }
         return () => cancelAnimationFrame(frameId)
 
     }, [onComplete])
-    const currentX = (100 - startX) + (startX - targetX) * progress;
-    const currentY = startY + (targetY - startY) * progress;
-    const angle = Math.atan2(targetY - startY, targetX - startX) * (180 / Math.PI);
+    const currentX = fromX + (toX - fromX) * progress;
+    const currentY = fromY + (toY - fromY) * progress;
+    // Angle in screen pixels, not percentages, so it stays true on any aspect ratio.
+    const angle = Math.atan2((toY - fromY) * window.innerHeight, (toX - fromX) * window.innerWidth) * (180 / Math.PI);
     const opacity = progress > 0.85 ? 1 - (progress - 0.85) / 0.15 : 1;
 
     return (
@@ -34,7 +36,8 @@ const Bullet = ({startX,startY,targetX,targetY,onComplete,bulletClass,bulletId }
                             position:'absolute',
                             left:`${currentX}%`,
                             top:`${currentY}%`,
-                            transform:`rotate(${angle}deg)`,
+                            // Pin the bullet's head (its right end) to the point, then aim it.
+                            transform:`translate(-100%, -50%) rotate(${angle}deg)`,
                             opacity
                         }
                         }
